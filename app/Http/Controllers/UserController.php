@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
 
 
 class UserController extends Controller
@@ -39,5 +40,32 @@ class UserController extends Controller
         ];
 
         return response(compact('user', 'token'));
+    }
+
+    // Loggin in
+    public function login(Request $request)
+    {
+        $formFields = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => 'required'
+        ]);
+
+
+        $user = User::where('email', $formFields['email'])->first();
+
+        if (!$user || !Hash::check($formFields['password'], $user->password)) {
+            return response(['message' => 'Wrong Credentials!'], 401);
+        }
+
+        $token = $user->createToken('prenatalapitoken')->plainTextToken;
+
+
+        $response = [
+            'user' => $user,
+            'token' => $token
+        ];
+
+
+        return response($response);
     }
 }
