@@ -22,4 +22,11 @@ class Category extends Model
     {
         return $this->belongsToMany(Color::class, 'category_colors', 'category_id', 'color_id')->withTimestamps();
     }
+
+
+    // Relation One-to-Many inside Category table with parent_category-children_categories
+    public function children()
+    {
+        return $this->hasMany(Category::class, 'parent_id', '_id')->with('children');
+    }
 }

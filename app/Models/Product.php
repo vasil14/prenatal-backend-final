@@ -22,4 +22,11 @@ class Product extends Model
     {
         return $this->hasMany(Gallery::class);
     }
+
+
+    // Relation One-to-Many inside Product table with parent_product-children_product
+    public function children()
+    {
+        return $this->hasMany(Product::class, 'parent_id', 'id')->with('children');
+    }
 }
