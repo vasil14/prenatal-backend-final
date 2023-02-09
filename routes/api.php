@@ -12,3 +12,8 @@ Route::prefix('user')->group(
         Route::post('/logout', [UserController::class, 'logout']);
     }
 );
+
+// Product routes
+Route::prefix('v1/products')->group(function () {
+    Route::get('/', [ProductController::class, 'index']);
+});
