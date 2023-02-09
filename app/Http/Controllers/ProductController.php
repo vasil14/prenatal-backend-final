@@ -12,4 +12,12 @@ class ProductController extends Controller
 
         return Product::where('parent_id', 0)->filterBy(request()->all())->with('children')->take(10)->get();
     }
+
+    // Get one product by id
+    public function show($id)
+    {
+
+        $product = Product::where('id', $id)->with('children')->with('images')->get();
+        return $product;
+    }
 }
