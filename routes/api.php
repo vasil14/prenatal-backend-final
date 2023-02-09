@@ -19,3 +19,6 @@ Route::prefix('v1/products')->group(function () {
     Route::get('/{id}', [ProductController::class, 'show']);
     Route::get('/category/{name}', [ProductController::class, 'productCategory']);
 });
+
+// Category routes
+Route::get('/category/{name}', [CategoryController::class, 'subCategories']);
