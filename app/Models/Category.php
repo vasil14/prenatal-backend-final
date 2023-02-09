@@ -10,4 +10,10 @@ class Category extends Model
     use HasFactory;
 
     protected $fillable = ['_id', 'name', 'parent_id'];
+
+    // Relation Many-to-Many for Product-Category
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'product_category',  'product_id', 'category_id')->withTimestamps();
+    }
 }
