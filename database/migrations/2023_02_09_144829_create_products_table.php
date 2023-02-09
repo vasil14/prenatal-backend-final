@@ -15,6 +15,24 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->integer('mpn');
+            $table->float('price')->nullable();
+            $table->float('sale_price')->nullable();
+            $table->float('vip_price')->nullable();
+            $table->string('stock')->nullable();
+            $table->string('availability');
+            $table->string('taglia');
+            $table->integer('parent_id')->nullable();
+            $table->string('title');
+            $table->text('description');
+            $table->string('link');
+            $table->string('image_link');
+            $table->text('product_type');
+            $table->integer('eta')->nullable();
+            $table->string('marche');
+            $table->string('genere');
+            $table->string('personaggi')->nullable();
+            $table->string('colore');
             $table->timestamps();
         });
     }
