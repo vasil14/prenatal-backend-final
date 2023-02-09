@@ -16,4 +16,10 @@ class Product extends Model
     {
         return $this->belongsToMany(Category::class, 'product_category', 'product_id', 'category_id')->withTimestamps();
     }
+
+    // Relation One-to-Many for Product-Gallery
+    public function images()
+    {
+        return $this->hasMany(Gallery::class);
+    }
 }
