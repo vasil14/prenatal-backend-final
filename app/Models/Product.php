@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Utilities\FilterBuilder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
@@ -28,5 +29,14 @@ class Product extends Model
     public function children()
     {
         return $this->hasMany(Product::class, 'parent_id', 'id')->with('children');
+    }
+
+    // Defining Filter method
+    public function scopeFilterBy($query, $filters)
+    {
+        $namespace = 'App\Utilities\ProductFilters';
+        $filter = new FilterBuilder($query, $filters, $namespace);
+
+        return $filter->apply();
     }
 }
